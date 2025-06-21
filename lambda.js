@@ -15,20 +15,63 @@ p2 = x => y => y
 
 assert(p1(1)(2) == 1)
 assert(p2(1)(2) == 2)
-console.log("px tests ok")
+console.log("projections tests ok")
 
 
 /////////////////////////////////////////
 // Point fix 
-const Y = f =>
+Y = f =>
   (x => f(v => x(x)(v)))
   (x => f(v => x(x)(v)));
 
-const fix = Y;
+fix = Y;
 
 {
     factorial = fix(f => n => (n === 0 ? 1 : n * f(n - 1)));
     assert(factorial(4) == 4*3*2)
 }
 
+vrai = p1
+faux = p2
+lt = x => y => x < y ? vrai : faux
+add = x => y => x + y
+mult = x => y => x * y 
 
+pair = x => y => p => p(x)(y)
+assert(1 == pair(1)(2)(vrai))
+assert(2 == pair(1)(2)(faux))
+
+sq = x => mult(x)(x)
+
+sing = e => f => g => f(e)
+cons = e => r => f => g => g(e)(r)
+
+mini = fix(f => l => l(x => x)(e => r => lt(e)(f(r))(e)(f(r))))
+assert(3 == mini(cons(7)(cons(3)(cons(5)(cons(6)(sing(5)))))))
+
+
+phd = l => l(
+    x => x
+)(
+    e => r => e
+)
+assert(7 == phd(cons(7)(cons(3)(cons(5)(cons(6)(sing(5)))))))
+assert(3 == phd(sing(3)))
+
+
+
+suml = fix(f => l => l(
+    x => sq(x)
+)(
+    e => r => add(sq(e))(f(r))
+))
+assert(13 == suml(cons(2)(sing(3))))
+
+
+long = fix(f => l => l(
+    x => 1
+)(
+    e => r => add(1)(f(r))
+))
+assert(1 == long(sing(3)))
+assert(3 == long(cons(1)(cons(4)(sing(9)))))

@@ -7,6 +7,12 @@
      (lambda (self)
        (builder (lambda (arg) ((self "deg") arg)))))))
 
+
+(define fix (lambda (f) (
+    (lambda (x) (f (lambda (v) ((x x) v))))
+    (lambda (x) (f (lambda (v) ((x x) v))))
+  )))
+
 ;; Exemple : factorial
 (define fact
   (fix (lambda (fact)
