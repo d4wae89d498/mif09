@@ -43,25 +43,31 @@ assert(2 == pair(1)(2)(faux))
 
 sq = x => mult(x)(x)
 
-sing = e => f => g => f(e)
-cons = e => r => f => g => g(e)(r)
+nil = fs => fc => fs 
 
-mini = fix(f => l => l(x => x)(e => r => lt(e)(f(r))(e)(f(r))))
+
+cons = e => r => f => g => g(e)(r)
+sing = e => cons(e)(nil)
+
+
+mini = fix(f => l => l(
+    99999999999
+)(
+    e => r => lt(e)(f(r))(e)(f(r)))
+)
 assert(3 == mini(cons(7)(cons(3)(cons(5)(cons(6)(sing(5)))))))
 
 
 phd = l => l(
-    x => x
+    nil // error!
 )(
     e => r => e
 )
 assert(7 == phd(cons(7)(cons(3)(cons(5)(cons(6)(sing(5)))))))
 assert(3 == phd(sing(3)))
 
-
-
 suml = fix(f => l => l(
-    x => sq(x)
+    0
 )(
     e => r => add(sq(e))(f(r))
 ))
@@ -69,9 +75,14 @@ assert(13 == suml(cons(2)(sing(3))))
 
 
 long = fix(f => l => l(
-    x => 1
+    0
 )(
     e => r => add(1)(f(r))
 ))
 assert(1 == long(sing(3)))
 assert(3 == long(cons(1)(cons(4)(sing(9)))))
+
+
+
+assert(0 == long(nil))
+assert(0 == suml(nil))
