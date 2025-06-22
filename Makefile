@@ -1,8 +1,11 @@
-all: godel lambda
+all: mu lambda
 
-godel:
-	node godel.js
+mu:
+	node mu/exercices.js
 
 lambda:
-	node lambda.js
-	scheme --script lambda.scm
+	node lambda/list_non_nil.js 
+	node lambda/list_nil_2cases.js 
+	node lambda/list_nil_3cases.js 
+
+.PHONY: lambda mu
