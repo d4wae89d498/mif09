@@ -15,7 +15,6 @@ const unaryIncrementDelta = {
 
 assert(tapeToString(runMachine(unaryIncrementDelta, 'q0', tapeFromString("111_"), ['HALT']).tape) === "1111");
 assert(tapeToString(runMachine(unaryIncrementDelta, 'q0', tapeFromString("_"), ['HALT']).tape) === "1");
-
 console.log("Unary increment done!");
 
 /////////////////////////////////////////
@@ -70,5 +69,4 @@ assert(runMachine(palindromeDelta, 'q0', tapeFromString("01_"), ['ACCEPT', 'REJE
 assert(runMachine(palindromeDelta, 'q0', tapeFromString("10_"), ['ACCEPT', 'REJECT']).state === 'REJECT');
 assert(runMachine(palindromeDelta, 'q0', tapeFromString("011_"), ['ACCEPT', 'REJECT']).state === 'REJECT');
 assert(runMachine(palindromeDelta, 'q0', tapeFromString("110_"), ['ACCEPT', 'REJECT']).state === 'REJECT');
-
 console.log("Palindrome recognition done!");
