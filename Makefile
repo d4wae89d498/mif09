@@ -1,12 +1,18 @@
-all: mu lambda
+all: godel church turing
 
-mu:
-	node mu/exercices.js
+godel:
+	@echo ======== $@ ========
+	node godel/exercices.js
 
-lambda:
-	node lambda/list_non_nil.js 
-	node lambda/list_nil_2cases.js 
-	node lambda/list_nil_3cases.js 
-	node lambda/int_church.js
+church:
+	@echo ======== $@ ========
+	node church/list_non_nil.js 
+	node church/list_nil_2cases.js 
+	node church/list_nil_3cases.js 
+	node church/int_church.js
 
-.PHONY: lambda mu
+turing:
+	@echo ======== $@ ========
+	node turing/exercices.js
+
+.PHONY: church godel turing
