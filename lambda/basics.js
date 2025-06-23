@@ -15,16 +15,9 @@ vrai = p1_2
 faux = p2_2
 
 and = a => b => a(b)(a)
-assert(and(vrai)(vrai) == vrai)
-assert(and(faux)(vrai) == faux)
-assert(and(vrai)(faux) == faux)
-assert(and(faux)(faux) == faux)
-
 or = a => b => a(vrai)(b)
-assert(or(vrai)(vrai) == vrai)
-assert(or(faux)(vrai) == vrai)
-assert(or(vrai)(faux) == vrai)
-assert(or(faux)(faux) == faux)
+not = x => x(faux)(vrai)
+
 
 module.exports = {
     p1_2,
@@ -32,10 +25,13 @@ module.exports = {
     p1_3,
     p2_3,
     p3_3,
+    pair,
+    letv,
     vrai,
     faux,
-    pair,
-    letv
+    and,
+    or,
+    not
 }
 
 {
@@ -63,4 +59,9 @@ module.exports = {
     assert(or(faux)(vrai) == vrai)
     assert(or(vrai)(faux) == vrai)
     assert(or(faux)(faux) == faux)
+
+    assert(not(vrai) == faux)
+    assert(not(faux) == vrai)
+    assert(not(not(faux)) == faux)
+    assert(not(not(vrai)) == vrai)
 }

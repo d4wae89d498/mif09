@@ -1,5 +1,5 @@
 const { assert } = require("../common");
-const { Zero, Succ, Proj, Composition, Rec} = require("./primitives")
+const { Zero, Succ, Proj, Composition, Rec, Minimisation} = require("./primitives")
 
 /////////////////////////////////////////
 // Exercices :
@@ -13,7 +13,7 @@ Add = Rec(
 assert(Add(3, 2) == 5);
 assert(Add(0, 0) == 0);
 assert(Add(7, 4) == 11);
-console.log("Add ok!")
+console.log("Add done!")
 
 
 Mult = Rec(
@@ -23,7 +23,7 @@ Mult = Rec(
 assert(Mult(3, 2) == 6);
 assert(Mult(0, 0) == 0);
 assert(Mult(7, 4) == 28);
-console.log("Mult ok!")
+console.log("Mult done!")
 
 
 Norm = Rec(
@@ -33,7 +33,7 @@ Norm = Rec(
 assert(Norm(4) == 1);
 assert(Norm(1) == 1);
 assert(Norm(0) == 0);
-console.log("Norm ok!")
+console.log("Norm done!")
 
 
 Not = Rec(
@@ -43,14 +43,14 @@ Not = Rec(
 assert(Not(4) == 0);
 assert(Not(1) == 0);
 assert(Not(0) == 1);
-console.log("Not ok!")
+console.log("Not done!")
 
 
 And = Composition(Norm, Mult);
 assert(And(0, 1) == 0);
 assert(And(1, 0) == 0);
 assert(And(4, 4) == 1);
-console.log("And ok!")
+console.log("And done!")
 
 
 
@@ -59,7 +59,7 @@ assert(Or(0, 0) == 0);
 assert(Or(0, 1) == 1);
 assert(Or(1, 0) == 1);
 assert(Or(4, 4) == 1);
-console.log("Or ok!")
+console.log("Or done!")
 
 
 Pred = Rec(
@@ -69,7 +69,7 @@ Pred = Rec(
 assert(Pred(4) == 3);
 assert(Pred(1) == 0);
 assert(Pred(0) == 0);
-console.log("Pred ok!")
+console.log("Pred done!")
 
 
 Sub = Rec(
@@ -80,7 +80,7 @@ assert(Sub(3, 2) == 1);
 assert(Sub(4, 2) == 2);
 assert(Sub(4, 4) == 0);
 assert(Sub(2, 4) == 0);
-console.log("Sub ok!");
+console.log("Sub done!");
 
 
 Equal = Composition(
@@ -93,14 +93,14 @@ Equal = Composition(
 assert(Equal(3, 3) == 1);
 assert(Equal(3, 2) == 0);
 assert(Equal(0, 0) == 1);
-console.log("Equal ok!");
+console.log("Equal done!");
 
 
 GreaterThan = Composition(Norm, Sub);
 assert(GreaterThan(3, 2) == 1);  // 3 > 2, donc vrai
 assert(GreaterThan(2, 3) == 0);  // 2 < 3, donc faux
 assert(GreaterThan(4, 4) == 0);  // 4 == 4, donc faux
-console.log("GreaterThan ok!");
+console.log("GreaterThan done!");
 
 
 LessThan = Composition(
@@ -111,27 +111,27 @@ LessThan = Composition(
 assert(LessThan(3, 2) == 0);  // 3 > 2, donc faux
 assert(LessThan(2, 3) == 1);  // 2 < 3, donc vrai
 assert(LessThan(4, 4) == 0);  // 4 == 4, donc faux
-console.log("LessThan ok!");
+console.log("LessThan done!");
 
 LessThanOrEqual = Composition(Not, GreaterThan); // a <= b iff Not(a > b)
 assert(LessThanOrEqual(3, 2) == 0);  // 3 > 2, donc faux
 assert(LessThanOrEqual(2, 3) == 1);  // 2 <= 3, donc vrai
 assert(LessThanOrEqual(4, 4) == 1);  // 4 <= 4, donc vrai
-console.log("LessThanOrEqual ok!");
+console.log("LessThanOrEqual done!");
 
 
 Double = Composition(Add, Proj(1), Proj(1));
 assert(Double(3) == 6);
 assert(Double(0) == 0);
 assert(Double(7) == 14);
-console.log("Double ok!");
+console.log("Double done!");
 
 
 Square = Composition(Mult, Proj(1), Proj(1));
 assert(Square(3) == 9);  // 3 squared is 9
 assert(Square(1) == 1); // 4 squared is 16
 assert(Square(0) == 0);  // 0 squared is 0
-console.log("Square ok!")
+console.log("Square done!")
 
 
 Cube = Composition(
@@ -142,7 +142,7 @@ Cube = Composition(
 assert(Cube(3) == 27);
 assert(Cube(0) == 0);
 assert(Cube(2) == 8);
-console.log("Cube ok!");
+console.log("Cube done!");
 
 
 SumSquares = Rec(
@@ -160,7 +160,7 @@ assert(SumSquares(4) == 4*4 + 3*3 + 2*2 + 1*1)
 assert(SumSquares(3) == 3*3 + 2*2 + 1*1)
 assert(SumSquares(2) == 2*2 + 1*1)
 assert(SumSquares(1) == 1*1)
-console.log("SumSquares ok!")
+console.log("SumSquares done!")
 
 
 let Rem
@@ -194,10 +194,10 @@ assert(Rem(7, 5) === 2);     // 7 ÷ 5 = 1, reste 2
 assert(Rem(10, 3) === 1);    // 10 ÷ 3 = 3, reste 1
 assert(Rem(0, 5) === 0);     // 0 ÷ 5 = 0, reste 0
 assert(Rem(3, 10) === 3);    // 3 ÷ 10 = 0, reste 3
-console.log("Reminder (fr: reste de la division euclidienne, ou modulo) ok!")
+console.log("Reminder (fr: reste de la division euclidienne, ou modulo) done!")
 
 // Divides a n : retourne 1 si a est un diviseur de n
- Divides = Composition(
+Divides = Composition(
     Equal,                // Compare...
     Composition(Rem, Proj(2), Proj(1)), // Rem(x, a)
     Zero                  // ...to zero
@@ -208,7 +208,7 @@ assert(Divides(10, 100) == 1)
 assert(Divides(10, 3) == 0)
 assert(Divides(3, 10) == 0)
 assert(Divides(9, 3) == 0)
-console.log("Divides ok!")
+console.log("Divides done!")
 
 
 let Div
@@ -253,7 +253,7 @@ assert(Div(9, 3) == 3)
 assert(Div(12, 3) == 4)
 assert(Div(12, 10) == 1)
 assert(Div(0, 10) == 0)
-console.log("Division ok!")
+console.log("Division done!")
 
 
 IfThenElse = Composition(
@@ -265,7 +265,7 @@ assert(IfThenElse(1, 4, 0) == 4)
 assert(IfThenElse(1, 0, 0) == 0) 
 assert(IfThenElse(0, 0, 0) == 0) 
 assert(IfThenElse(0, 0, 4) == 4) 
-console.log("IfThenElse ok!")
+console.log("IfThenElse done!")
 
 
 Max = Composition(
@@ -278,10 +278,10 @@ assert(Max(3, 4) == 4)
 assert(Max(4, 3) == 4) 
 assert(Max(0, 0) == 0) 
 assert(Max(10, 5) == 10) 
-console.log("Max ok!")
+console.log("Max done!")
 
 
- Min = Composition(
+Min = Composition(
     IfThenElse,
     Composition(LessThanOrEqual, Proj(1), Proj(2)),  // condition a ≤ b
     Proj(1),                                         // alors a
@@ -289,13 +289,13 @@ console.log("Max ok!")
 );
 assert(Min(3,5) === 3);
 assert(Min(7,2) === 2);
-console.log("Min ok!");
+console.log("Min done!");
 
 IsZero = Composition(Equal, Proj(1), Composition(Zero)); // Vérifie si un nombre est égal à zéro
 assert(IsZero(3) === 0);
 assert(IsZero(0) === 1);
 assert(IsZero(1) === 0);
-console.log("IsZero ok!");
+console.log("IsZero done!");
 
 EitherIsZero = Composition(
     Or,
@@ -306,7 +306,7 @@ assert(EitherIsZero(0, 1) === 1);
 assert(EitherIsZero(3, 0) === 1);
 assert(EitherIsZero(0, 0) === 1);
 assert(EitherIsZero(1, 1) === 0);
-console.log("EitherIsZero ok!");
+console.log("EitherIsZero done!");
 
 
 DividesBoth = Composition(
@@ -318,7 +318,7 @@ assert(DividesBoth(4, 12, 24) == 1)
 assert(DividesBoth(5, 100, 10) == 1)
 assert(DividesBoth(6, 12, 48) == 1)
 assert(DividesBoth(3, 7, 5) == 0)
-console.log("DividesBoth ok!")
+console.log("DividesBoth done!")
 
 
 let GCD;
@@ -380,9 +380,8 @@ assert(GCD(18,12) === 6);
 assert(GCD(7,4)  === 1);
 assert(GCD(9,6)  === 3);
 assert(GCD(0,3)  === 3);
-console.log(GCD(12,18), GCD(12,18), GCD(9,6))
 
- PPCM = Composition(
+PPCM = Composition(
     Div,
     Composition(Mult, Proj(1), Proj(2)),
     Composition(GCD, Proj(1), Proj(2))
@@ -395,5 +394,18 @@ assert(PPCM(8, 12) === 24);
 assert(PPCM(1, 1) === 1);
 console.log("PPCM ok !");
 
+SqRoot = Minimisation(Composition(
+    GreaterThan,
+    Proj(1),
+    Composition(Square, Proj(2))
+))
+assert(SqRoot(9) == 3)
+console.log("SqRoot ok !");
 
-console.log("TODO: minimisation")
+CubicSqRoot = Minimisation(Composition(
+    GreaterThan,
+    Proj(1),
+    Composition(Square, Composition(Square, Proj(2)))
+))
+assert(CubicSqRoot(81) == 3)
+console.log("CubicSqRoot ok !");
