@@ -2,6 +2,8 @@ Zero = () => 0
 
 Succ = (x) => x + 1;
 
+Constante = (x) => (...ignore) => x
+
 Proj = (i) => (...x) => x[i - 1];
 
 Composition = (g, ...h) => (...x) => g(...h.map(f => f(...x)));
@@ -25,11 +27,14 @@ Minimisation = (g) => (...args) => {
     return k;
 };
 
+Debug = (what, el) => (...args) => what(...args);
+
 module.exports = {
     Zero,
     Succ,
     Proj,
     Composition,
     Rec,
-    Minimisation
+    Minimisation,
+    Debug
 }

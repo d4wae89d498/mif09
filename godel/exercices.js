@@ -38,7 +38,7 @@ console.log("Norm done!")
 
 Not = Rec(
     Composition(Succ, Zero),
-    Composition(Zero, Proj(1))
+    Zero
 );
 assert(Not(4) == 0);
 assert(Not(1) == 0);
@@ -392,7 +392,7 @@ assert(PPCM(3, 7) === 21);
 assert(PPCM(5, 10) === 10);
 assert(PPCM(8, 12) === 24);
 assert(PPCM(1, 1) === 1);
-console.log("PPCM ok !");
+console.log("PPCM done!");
 
 SqRoot = Minimisation(Composition(
     GreaterThan,
@@ -400,7 +400,7 @@ SqRoot = Minimisation(Composition(
     Composition(Square, Proj(2))
 ))
 assert(SqRoot(9) == 3)
-console.log("SqRoot ok !");
+console.log("SqRoot done!");
 
 CubicSqRoot = Minimisation(Composition(
     GreaterThan,
@@ -408,4 +408,22 @@ CubicSqRoot = Minimisation(Composition(
     Composition(Square, Composition(Square, Proj(2)))
 ))
 assert(CubicSqRoot(81) == 3)
-console.log("CubicSqRoot ok !");
+console.log("CubicSqRoot done!");
+
+
+ppcm2 = Minimisation(
+    Composition(Add,
+        Composition(Not, Proj(3)),
+        Composition(Add, 
+            Composition(Rem, Proj(3), Proj(1)),
+            Composition(Rem, Proj(3), Proj(2)),
+        )
+    )
+)
+assert(ppcm2(4, 6) === 12);
+assert(ppcm2(6, 4) === 12);
+assert(ppcm2(3, 7) === 21);
+assert(ppcm2(5, 10) === 10);
+assert(ppcm2(8, 12) === 24);
+assert(ppcm2(1, 1) === 1);
+console.log("ppcm2 done!");
