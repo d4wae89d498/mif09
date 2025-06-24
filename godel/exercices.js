@@ -169,14 +169,14 @@ let Rem
      StepRem = Composition(
         Add,
         Composition(
-        Mult,
-        Composition(LessThan, Proj(1), Proj(2)), // Condition : a < b
-        Proj(1) // Si oui, retourne a
+            Mult,
+            Composition(LessThan, Proj(1), Proj(2)), // Condition : a < b
+            Proj(1) // Si oui, retourne a
         ),
         Composition(
-        Mult,
-        Composition(Not, Composition(LessThan, Proj(1), Proj(2))), // Non (a >= b)
-        Composition(Sub, Proj(1), Proj(2)) // Si non, retourne a - b
+            Mult,
+            Composition(Not, Composition(LessThan, Proj(1), Proj(2))), // Non (a >= b)
+            Composition(Sub, Proj(1), Proj(2)) // Si non, retourne a - b
         )
     );
 

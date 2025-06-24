@@ -36,5 +36,6 @@ module.exports = {
     Composition,
     Rec,
     Minimisation,
+    Constante,
     Debug
 }
